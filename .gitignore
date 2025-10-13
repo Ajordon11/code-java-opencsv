@@ -1,0 +1,14 @@
+# Ignore compiled Java files
+target/
+
+*.log
+*.lock
+mvn/wrapper/maven-wrapper.jar
+
+.idea/
+.vscode/
+*.iml
+
+*.class
+*.jar
+
