@@ -23,7 +23,7 @@ public class TableExportService {
         sorted.getRows().subList(0, NUM_DISPLAYED_VENDORS).forEach(row -> {
             rows.add(row);
         });
-        rows.add(createTableRowForOthers(table, totalUnits));
+        rows.add(createTableRowForOthers(sorted, totalUnits));
         rows.add(new TableRow(TOTAL, totalUnits, 1.0));
         return new FormattedTable(rows);
     }
