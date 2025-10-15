@@ -54,10 +54,21 @@ public class TableService {
         return newTable;
     }
 
+    /**
+     * Sort table by units, if they have the same units, sort by vendor
+     * @param table table to sort
+     */
     public Table sortTableByUnits(Table table,boolean asc) {
         ArrayList<TableRow> rowsToSort = new ArrayList<>(table.getRows());
         Table newTable = new Table();
-        rowsToSort.sort(Comparator.comparing(TableRow::units, asc ? Comparator.naturalOrder() : Comparator.reverseOrder()));
+        rowsToSort.sort((a, b) -> {
+            int comparison = Long.compare(a.units(), b.units());
+            if (comparison == 0) {
+                return a.vendor().compareTo(b.vendor());
+            } else {
+                return asc ? comparison : -comparison;
+            }
+        });
         newTable.setRows(rowsToSort);
         return newTable;
     }

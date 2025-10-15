@@ -38,7 +38,8 @@ public class App
             Table table = tableService.getParsedTableForQuarter(data, "2010 Q4");
             
             FormattedTable formattedTable = tableExportService.getFormattedTable(table);
-            formattedTable.printTable();
+            tableExportService.exportToConsole(formattedTable);
+            tableExportService.exportToHTML(formattedTable);
 
         } catch (FileNotFoundException ex) {
             System.err.println("Input file cannot be read or opened: " + ex.getMessage());

@@ -28,6 +28,22 @@ public class TableExportService {
         return new FormattedTable(rows);
     }
 
+    public void exportToConsole(FormattedTable table) {
+        table.printTable();
+    }
+
+    public void exportToHTML(FormattedTable table) {
+        throw new UnsupportedOperationException("HTML export is not implemented yet");
+    }
+
+    public void exportToCSV(FormattedTable table) {
+        throw new UnsupportedOperationException("CSV export is not implemented yet");
+    }
+
+    public void exportToExcel(FormattedTable table) {
+        throw new UnsupportedOperationException("Excel export is not implemented yet");
+    }
+
     private Long getTotalUnits(Table table) {
         return table.getRows().stream()
                 .map(TableRow::units)

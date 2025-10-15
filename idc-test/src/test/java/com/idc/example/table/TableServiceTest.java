@@ -90,6 +90,40 @@ class TableServiceTest {
     }
 
     @Test
+    void testSortByUnits_equalUnits() {
+        Table table = tableService.getParsedTableForQuarter(new DataObject(List.of(
+                new DataRow("Slovakia", "2010 Q1", 10, "Vendor1"),
+                new DataRow("Slovakia", "2010 Q1", 20, "Vendor2"),
+                new DataRow("Slovakia", "2010 Q1", 10, "Vendor3"),
+                new DataRow("Czech Republic", "2010 Q1", 10, "Vendor1"),
+                new DataRow("Slovakia", "2010 Q2", 15, "Vendor3"),
+                new DataRow("Slovakia", "2010 Q2", 10, "Vendor3")
+        )), "2010 Q1");
+
+        Table sortedAsc = tableService.sortTableByUnits(table, true);
+        Table sortedDesc = tableService.sortTableByUnits(table, false);
+
+        Assertions.assertEquals(3, sortedAsc.getRows().size());
+        Assertions.assertEquals(3, sortedDesc.getRows().size());
+
+        Assertions.assertEquals(10L, sortedAsc.getRows().getFirst().units());
+        Assertions.assertEquals(20L, sortedAsc.getRows().get(1).units());
+        Assertions.assertEquals(20L, sortedAsc.getRows().getLast().units());
+
+        Assertions.assertEquals(20L, sortedDesc.getRows().getFirst().units());
+        Assertions.assertEquals(20L, sortedDesc.getRows().get(1).units());
+        Assertions.assertEquals(10L, sortedDesc.getRows().getLast().units());
+
+        Assertions.assertEquals("Vendor3", sortedAsc.getRows().getFirst().vendor());
+        Assertions.assertEquals("Vendor1", sortedAsc.getRows().get(1).vendor());
+        Assertions.assertEquals("Vendor2", sortedAsc.getRows().getLast().vendor());
+
+        Assertions.assertEquals("Vendor1", sortedDesc.getRows().getFirst().vendor());
+        Assertions.assertEquals("Vendor2", sortedDesc.getRows().get(1).vendor());
+        Assertions.assertEquals("Vendor3", sortedDesc.getRows().getLast().vendor());
+    }
+
+    @Test
     void testSortByVendor() {
         DataObject tableData = getTestData();
         Table table = tableService.getParsedTable(tableData);
