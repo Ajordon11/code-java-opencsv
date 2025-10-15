@@ -11,8 +11,12 @@ import com.idc.example.table.Table;
 import com.idc.example.table.TableExportService;
 import com.idc.example.table.TableService;
 
-public class App 
-{
+public class App {
+    
+    private static final String DEFAULT_INPUT_FILE_NAME = "src/main/resources/IDC-data.csv";
+    private static final String DEFAULT_HTML_OUTPUT_FILE_NAME = "output/table.html";
+    private static final String DEFAULT_SELECTED_QUARTER = "2010 Q4";
+
     public static void main( String[] args ) {
         CsvLoader csvLoader = new CsvLoader();
         TableService tableService = new TableService();
@@ -29,17 +33,17 @@ public class App
             inputFileName = args[0];
         } else {
             System.out.println("No input file specified, using default input file");
-            inputFileName = "src/main/resources/IDC-data.csv";
+            inputFileName = DEFAULT_INPUT_FILE_NAME;
         }
 
         try {
             CsvDataObject tableData = csvLoader.loadDataFromCsv(inputFileName, DataRow.class);
             DataObject data = new DataObject(tableData.getCsvRows());
-            Table table = tableService.getParsedTableForQuarter(data, "2010 Q4");
+            Table table = tableService.getParsedTableForQuarter(data, DEFAULT_SELECTED_QUARTER);
             
             FormattedTable formattedTable = tableExportService.getFormattedTable(table);
             tableExportService.exportToConsole(formattedTable);
-            tableExportService.exportToHTML(formattedTable);
+            tableExportService.exportToHTML(formattedTable, DEFAULT_HTML_OUTPUT_FILE_NAME);
 
         } catch (FileNotFoundException ex) {
             System.err.println("Input file cannot be read or opened: " + ex.getMessage());
