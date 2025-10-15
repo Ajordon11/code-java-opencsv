@@ -4,6 +4,12 @@ import com.opencsv.bean.AbstractBeanField;
 import com.opencsv.exceptions.CsvConstraintViolationException;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 
+/**
+ * Converts string value from CSV into long.
+ * 
+ * Since units are provided with tousands separators (e.g. 1.000), 
+ * they need to be removed as well.
+ */
 public class StringToLongConverter extends AbstractBeanField {
 
     @Override

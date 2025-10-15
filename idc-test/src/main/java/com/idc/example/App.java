@@ -4,8 +4,10 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import com.idc.example.csv.CsvLoader;
+import com.idc.example.table.DataObject;
+import com.idc.example.table.DataRow;
 import com.idc.example.table.Table;
-import com.idc.example.table.TableRow;
+import com.idc.example.table.TableService;
 
 public class App 
 {
@@ -26,8 +28,12 @@ public class App
         }
 
         try {
-            List<TableRow> rows = csvLoader.buildBeansFromCsv(inputFileName, TableRow.class);
-            Table table = new Table(rows);
+            List<DataRow> rows = csvLoader.buildBeansFromCsv(inputFileName, DataRow.class);
+            DataObject tableData = new DataObject(rows);
+
+            TableService tableService = new TableService();
+            Table table = tableService.getFormattedTableForQuarter(tableData, "2010 Q4");
+            table.printTable();
         } catch (FileNotFoundException ex) {
             System.err.println("Input file cannot be read or opened: " + ex.getMessage());
         }
