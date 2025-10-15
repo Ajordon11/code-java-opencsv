@@ -1,7 +1,9 @@
 package com.idc.example.table;
 
 import com.idc.example.csv.CsvBean;
+import com.idc.example.csv.StringToLongConverter;
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvCustomBindByName;
 
 public class TableRow extends CsvBean {
     @CsvBindByName
@@ -13,8 +15,8 @@ public class TableRow extends CsvBean {
     @CsvBindByName
     private String vendor;
     
-    @CsvBindByName
-    private double units;
+    @CsvCustomBindByName(converter = StringToLongConverter.class)
+    private long units;
 
     @Override
     public String toString() {
@@ -49,7 +51,7 @@ public class TableRow extends CsvBean {
         return units;
     }
 
-    public void setUnits(double units) {
+    public void setUnits(long units) {
         this.units = units;
     }
 }

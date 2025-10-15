@@ -37,7 +37,7 @@ public class CsvLoaderTest {
             csvLoader.buildBeansFromCsv(fileName, CsvBean.class);
         });
 
-        Assertions.assertEquals(ex.getMessage(), fileName + " (The system cannot find the file specified)");
+        Assertions.assertEquals(fileName + " (The system cannot find the file specified)", ex.getMessage());
     }
 
     @ParameterizedTest
@@ -47,6 +47,6 @@ public class CsvLoaderTest {
             csvLoader.buildBeansFromCsv(fileName, CsvBean.class);
         });
 
-        Assertions.assertEquals(ex.getMessage(), "Input file is empty: " + fileName);
+        Assertions.assertEquals("Input file is empty: " + fileName, ex.getMessage());
     }
 }
