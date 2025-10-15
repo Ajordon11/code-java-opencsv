@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * This class holds actual table representation (view) of the data from csv
- * file.
+ * file, with only relevant columns for export.
  */
 public class Table {
 

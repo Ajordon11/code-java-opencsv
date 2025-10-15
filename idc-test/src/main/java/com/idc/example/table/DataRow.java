@@ -5,6 +5,9 @@ import com.idc.example.csv.StringToLongConverter;
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvCustomBindByName;
 
+/**
+ * Holds raw data from a row in csv file, loaded using CsvToBeanBuilder
+ */
 public class DataRow extends CsvBean {
     @CsvBindByName
     private String country;

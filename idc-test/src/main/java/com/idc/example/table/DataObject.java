@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.idc.example.csv.CsvDataObject;
 
+/**
+ * Holds raw data from csv file (as List of CSV rows)
+ */
 public class DataObject extends CsvDataObject<DataRow> {
 
     private List<DataRow> rows = new ArrayList<>();

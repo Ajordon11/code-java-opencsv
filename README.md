@@ -28,6 +28,11 @@ java -jar target/idc-test-1.0-SNAPSHOT-jar-with-dependencies.jar
 java -jar target/idc-test-1.0-SNAPSHOT-jar-with-dependencies.jar src/main/resources/IDC-data.csv
 ```
 
+3. to run tests:
+```bash
+mvn test
+```
+
 ### Notes
 1. Units in CSV file are provided as doubles (with decimal point), but since there is nothing specifying what are those units, I initially assumed that those are thousands delimiters (since it doesn't make sense to sell partial products to me). 
  - the number of units is converted to long, decimal point removed
