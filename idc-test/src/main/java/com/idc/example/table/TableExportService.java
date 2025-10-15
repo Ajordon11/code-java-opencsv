@@ -62,10 +62,20 @@ public class TableExportService {
         }
     }
 
+    /**
+     * Export to CSV using OpenCSV and FileWriter 
+     * {@link https://opencsv.sourceforge.net/#writing}
+     * Similar process to exportToHTML, without the need to add styles and so many tags.
+     * FormattedTable is just a list of TableRows with already prefiltered and formatted data
+     */
     public void exportToCSV(FormattedTable table) {
         throw new UnsupportedOperationException("CSV export is not implemented yet");
     }
 
+    /**
+     * Export to Excel using Apache POI and XSSFWorkbook.
+     * Needs to add cell type for each column, but otherwise similar process to exportToHTML
+     */
     public void exportToExcel(FormattedTable table) {
         throw new UnsupportedOperationException("Excel export is not implemented yet");
     }
