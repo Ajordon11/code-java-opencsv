@@ -14,6 +14,10 @@ public class Table {
     public Table() {
     }
 
+    public Table(List<TableRow> rows) {
+        this.rows = rows;
+    }
+
     public List<TableRow> getRows() {
         return rows;
     }
@@ -24,11 +28,6 @@ public class Table {
 
     public void printTable() {
         rows.forEach(row -> System.out.println(row));
-    }
-
-    public void printTableFormatted() {
-        
-        rows.forEach(row -> System.out.println(row.vendor() + " | " + row.units() + " | " + row.share()));
     }
 
     /**
@@ -47,7 +46,8 @@ public class Table {
     }
 
     /**
-     * Only return units for given vendor in this instance of table (reduced from original csv data).
+     * Only return units for given vendor in this instance of table (reduced
+     * from original csv data).
      */
     public long getUnitsForVendorInView(String vendor) {
         return rows.stream()
@@ -58,7 +58,8 @@ public class Table {
     }
 
     /**
-     * Only return share for given vendor in this instance of table (reduced from original csv data).
+     * Only return share for given vendor in this instance of table (reduced
+     * from original csv data).
      */
     public double getShareForVendorInView(String vendor) {
         return rows.stream()

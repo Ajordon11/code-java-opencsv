@@ -21,9 +21,9 @@ public class CsvLoader {
      * @param dataObjectClass extends CsvDataObject
      * @return
      */
-    public <T extends CsvDataObject> T loadDataFromCsv(String fileName, Class rowObjectClass, Class dataObjectClass) throws FileNotFoundException {
+    public CsvDataObject loadDataFromCsv(String fileName, Class rowObjectClass) throws FileNotFoundException, InstantiationException, IllegalAccessException {
         List<CsvBean> rows = buildBeansFromCsv(fileName, rowObjectClass);
-        return (T) new CsvDataObject(rows);
+        return new CsvDataObject(rows);
     }
     private <T extends CsvBean> List<T> buildBeansFromCsv(String fileName, Class clazz) throws FileNotFoundException {
 

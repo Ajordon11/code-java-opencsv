@@ -8,12 +8,12 @@ import java.util.Map;
 
 public class TableService {
 
-    public Table getFormattedTable(DataObject tableData) {
-        return getFormattedTable(tableData, null);
+    public Table getParsedTable(DataObject tableData) {
+        return getParsedTable(tableData, null);
     }
 
-    public Table getFormattedTableForQuarter(DataObject tableData, String quarter) {
-        return getFormattedTable(tableData, quarter);
+    public Table getParsedTableForQuarter(DataObject tableData, String quarter) {
+        return getParsedTable(tableData, quarter);
     }
 
     /**
@@ -21,7 +21,7 @@ public class TableService {
      * @param tableData data loaded from CSV
      * @param quarter if null, table will be built for all quarters
      */
-    public Table getFormattedTable(DataObject tableData, String quarter) {
+    public Table getParsedTable(DataObject tableData, String quarter) {
         if (quarter != null) {
             tableData = tableData.getDataForSpecificQuarter(quarter);
         }

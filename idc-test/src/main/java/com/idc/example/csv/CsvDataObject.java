@@ -2,16 +2,16 @@ package com.idc.example.csv;
 
 import java.util.List;
 
-public class CsvDataObject {
-    private List<CsvBean> rows;
+public class CsvDataObject<T extends CsvBean> {
+    private List<T> rows;
 
-    public CsvDataObject(List<CsvBean> rows) {
+    public CsvDataObject(List<T> rows) {
         this.rows = rows;
     }
 
     public CsvDataObject() {}
 
-    public List<CsvBean> getCsvRows() {
+    public List<T> getCsvRows() {
         return rows;
     }
 }

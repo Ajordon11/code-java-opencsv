@@ -5,9 +5,15 @@ import java.util.List;
 
 import com.idc.example.csv.CsvDataObject;
 
-public class DataObject extends CsvDataObject {
+public class DataObject extends CsvDataObject<DataRow> {
 
     private List<DataRow> rows = new ArrayList<>();
+
+    public DataObject(List<DataRow> rows) {
+        this.rows = rows;
+    }
+
+    public DataObject() {}
 
     public List<DataRow> getRows() {
         return rows;

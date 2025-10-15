@@ -25,6 +25,8 @@ public class DataRow extends CsvBean {
         this.vendor = vendor;
     }
 
+    public DataRow() {}
+
     @Override
     public String toString() {
         return "" + country + ", " + timescale + ", " + vendor + ", " + units;

@@ -19,7 +19,7 @@ class TableServiceTest {
     void testGetFormattedTable() {
         DataObject tableData = getTestData();
 
-        Table result = tableService.getFormattedTable(tableData);
+        Table result = tableService.getParsedTable(tableData);
         result.printTable();
 
         Assertions.assertEquals(3, result.getRows().size());
@@ -44,7 +44,7 @@ class TableServiceTest {
     void testGetFormattedTableForQuarter() {
         DataObject tableData = getTestData();
 
-        Table result = tableService.getFormattedTableForQuarter(tableData, "2010 Q2");
+        Table result = tableService.getParsedTableForQuarter(tableData, "2010 Q2");
 
         Assertions.assertEquals(2, result.getRows().size());
         TableRow vendor1Row = result.getRows().stream().filter(r -> r.vendor().equals("Vendor1")).findFirst().orElse(null);
@@ -65,7 +65,7 @@ class TableServiceTest {
     void testGetFormattedTableForQuarter_InvalidQuarter() {
         DataObject tableData = getTestData();
 
-        Table result = tableService.getFormattedTableForQuarter(tableData, "Q4");
+        Table result = tableService.getParsedTableForQuarter(tableData, "Q4");
 
         Assertions.assertEquals(0, result.getRows().size());
     }
@@ -73,7 +73,7 @@ class TableServiceTest {
     @Test
     void testSortByUnits() {
         DataObject tableData = getTestData();
-        Table table = tableService.getFormattedTable(tableData);
+        Table table = tableService.getParsedTable(tableData);
 
         Table sortedAsc = tableService.sortTableByUnits(table, true);
         Table sortedDesc = tableService.sortTableByUnits(table, false);
@@ -92,7 +92,7 @@ class TableServiceTest {
     @Test
     void testSortByVendor() {
         DataObject tableData = getTestData();
-        Table table = tableService.getFormattedTable(tableData);
+        Table table = tableService.getParsedTable(tableData);
 
         Table sortedAsc = tableService.sortTableByVendor(table, true);
         Table sortedDesc = tableService.sortTableByVendor(table, false);
