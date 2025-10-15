@@ -6,41 +6,42 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class TableTest {
-
     @Test
-    void testSortByUnits() {
+    void testGetRowNumberForVendor() {
         Table table = getTestData();
-        
-        Table sortedAsc = table.sortedByUnits(true);
-        Table sortedDesc = table.sortedByUnits(false);
 
-        Assertions.assertEquals(6, sortedAsc.getRows().size());
-        Assertions.assertEquals(6, sortedDesc.getRows().size());
-
-        Assertions.assertEquals(10L, sortedAsc.getRows().getFirst().units());
-        Assertions.assertEquals(50L, sortedAsc.getRows().getLast().units());
-        
-        Assertions.assertEquals(50L, sortedDesc.getRows().getFirst().units());
-        Assertions.assertEquals(10L, sortedDesc.getRows().getLast().units());
-
+        Assertions.assertEquals(6, table.getRowNumberForVendor("Vendor1"));
+        Assertions.assertEquals(2, table.getRowNumberForVendor("Vendor2"));
+        Assertions.assertEquals(1, table.getRowNumberForVendor("Vendor3"));
+        Assertions.assertEquals(4, table.getRowNumberForVendor("Vendor4"));
+        Assertions.assertEquals(3, table.getRowNumberForVendor("Vendor5"));
+        Assertions.assertEquals(5, table.getRowNumberForVendor("Vendor8"));
     }
 
     @Test
-    void testSortByVendor() {
+    void testGetUnitsForVendorInView() {
         Table table = getTestData();
 
-        Table sortedAsc = table.sortedByVendor(true);
-        Table sortedDesc = table.sortedByVendor(false);
-
-        Assertions.assertEquals(6, sortedAsc.getRows().size());
-        Assertions.assertEquals(6, sortedDesc.getRows().size());
-
-        Assertions.assertEquals("Vendor1", sortedAsc.getRows().getFirst().vendor());
-        Assertions.assertEquals("Vendor8", sortedAsc.getRows().getLast().vendor());
-        
-        Assertions.assertEquals("Vendor8", sortedDesc.getRows().getFirst().vendor());
-        Assertions.assertEquals("Vendor1", sortedDesc.getRows().getLast().vendor());
+        Assertions.assertEquals(50L, table.getUnitsForVendorInView("Vendor1"));
+        Assertions.assertEquals(20L, table.getUnitsForVendorInView("Vendor2"));
+        Assertions.assertEquals(10L, table.getUnitsForVendorInView("Vendor3"));
+        Assertions.assertEquals(40L, table.getUnitsForVendorInView("Vendor4"));
+        Assertions.assertEquals(30L, table.getUnitsForVendorInView("Vendor5"));
+        Assertions.assertEquals(50L, table.getUnitsForVendorInView("Vendor8"));
     }
+
+    @Test
+    void testGetShareForVendorInView() {
+        Table table = getTestData();
+
+        Assertions.assertEquals(0.25, table.getShareForVendorInView("Vendor1"));
+        Assertions.assertEquals(0.1, table.getShareForVendorInView("Vendor2"));
+        Assertions.assertEquals(0.05, table.getShareForVendorInView("Vendor3"));
+        Assertions.assertEquals(0.2, table.getShareForVendorInView("Vendor4"));
+        Assertions.assertEquals(0.15, table.getShareForVendorInView("Vendor5"));
+        Assertions.assertEquals(0.25, table.getShareForVendorInView("Vendor8"));
+    }
+
 
     private Table getTestData() {
         Table table = new Table();

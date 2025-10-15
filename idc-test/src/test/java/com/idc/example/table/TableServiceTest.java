@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 class TableServiceTest {
 
     private TableService tableService;
@@ -69,6 +68,43 @@ class TableServiceTest {
         Table result = tableService.getFormattedTableForQuarter(tableData, "Q4");
 
         Assertions.assertEquals(0, result.getRows().size());
+    }
+
+    @Test
+    void testSortByUnits() {
+        DataObject tableData = getTestData();
+        Table table = tableService.getFormattedTable(tableData);
+
+        Table sortedAsc = tableService.sortTableByUnits(table, true);
+        Table sortedDesc = tableService.sortTableByUnits(table, false);
+
+        Assertions.assertEquals(3, sortedAsc.getRows().size());
+        Assertions.assertEquals(3, sortedDesc.getRows().size());
+
+        Assertions.assertEquals(5L, sortedAsc.getRows().getFirst().units());
+        Assertions.assertEquals(60L, sortedAsc.getRows().getLast().units());
+
+        Assertions.assertEquals(60L, sortedDesc.getRows().getFirst().units());
+        Assertions.assertEquals(5L, sortedDesc.getRows().getLast().units());
+
+    }
+
+    @Test
+    void testSortByVendor() {
+        DataObject tableData = getTestData();
+        Table table = tableService.getFormattedTable(tableData);
+
+        Table sortedAsc = tableService.sortTableByVendor(table, true);
+        Table sortedDesc = tableService.sortTableByVendor(table, false);
+
+        Assertions.assertEquals(3, sortedAsc.getRows().size());
+        Assertions.assertEquals(3, sortedDesc.getRows().size());
+
+        Assertions.assertEquals("Vendor1", sortedAsc.getRows().getFirst().vendor());
+        Assertions.assertEquals("Vendor3", sortedAsc.getRows().getLast().vendor());
+
+        Assertions.assertEquals("Vendor3", sortedDesc.getRows().getFirst().vendor());
+        Assertions.assertEquals("Vendor1", sortedDesc.getRows().getLast().vendor());
     }
 
     private DataObject getTestData() {

@@ -22,8 +22,9 @@ public class CsvLoaderTest {
     public void testBuildBeansFromCsv_ValidCsv_FileExists() throws FileNotFoundException {
         String fileName = "src/main/resources/IDC-data.csv";
 
-        List<CsvBean> rows = csvLoader.buildBeansFromCsv(fileName, CsvBean.class);
+        CsvDataObject data = csvLoader.loadDataFromCsv(fileName, CsvBean.class, CsvDataObject.class);
 
+        List<CsvBean> rows = data.getCsvRows();
         Assertions.assertNotNull(rows);
         Assertions.assertFalse(rows.isEmpty());
         Assertions.assertEquals(28, rows.size());
@@ -34,7 +35,7 @@ public class CsvLoaderTest {
         String fileName = "nonexistent.csv";
 
         Exception ex = Assertions.assertThrows(FileNotFoundException.class, () -> {
-            csvLoader.buildBeansFromCsv(fileName, CsvBean.class);
+            csvLoader.loadDataFromCsv(fileName, CsvBean.class, CsvDataObject.class);
         });
 
         Assertions.assertEquals(fileName + " (The system cannot find the file specified)", ex.getMessage());
@@ -44,7 +45,7 @@ public class CsvLoaderTest {
     @ValueSource(strings = { "src/test/resources/empty-header.csv", "src/test/resources/empty-no-header.csv" })
     public void testBuildBeansFromCsv_EmptyCsv_FileExists(String fileName) {
         Exception ex = Assertions.assertThrows(FileNotFoundException.class, () -> {
-            csvLoader.buildBeansFromCsv(fileName, CsvBean.class);
+            csvLoader.loadDataFromCsv(fileName, CsvBean.class, CsvDataObject.class);
         });
 
         Assertions.assertEquals("Input file is empty: " + fileName, ex.getMessage());

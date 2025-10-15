@@ -1,7 +1,6 @@
 package com.idc.example;
 
 import java.io.FileNotFoundException;
-import java.util.List;
 
 import com.idc.example.csv.CsvLoader;
 import com.idc.example.table.DataObject;
@@ -13,7 +12,9 @@ public class App
 {
     public static void main( String[] args ) {
         CsvLoader csvLoader = new CsvLoader();
+        TableService tableService = new TableService();
         String inputFileName;
+        
         if (args.length > 0 && args[0] != null) {
             if (!csvLoader.fileExists(args[0])) {
                 System.err.println("Input file does not exist: " + args[0]);
@@ -28,10 +29,7 @@ public class App
         }
 
         try {
-            List<DataRow> rows = csvLoader.buildBeansFromCsv(inputFileName, DataRow.class);
-            DataObject tableData = new DataObject(rows);
-
-            TableService tableService = new TableService();
+            DataObject tableData = csvLoader.loadDataFromCsv(inputFileName, DataRow.class, DataObject.class);
             Table table = tableService.getFormattedTableForQuarter(tableData, "2010 Q4");
             table.printTable();
         } catch (FileNotFoundException ex) {

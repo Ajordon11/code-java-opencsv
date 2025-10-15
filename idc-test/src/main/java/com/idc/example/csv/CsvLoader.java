@@ -8,7 +8,24 @@ import java.util.List;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 public class CsvLoader {
-    public <T extends CsvBean> List<T> buildBeansFromCsv(String fileName, Class clazz) throws FileNotFoundException {
+
+    public boolean fileExists(String fileName) {
+        File f = new File(fileName);
+        return f.exists() && !f.isDirectory();
+    }
+
+    /**
+     * Load data from csv file and convert it to list of objects
+     * @param fileName
+     * @param rowObjectClass extends CsvBean
+     * @param dataObjectClass extends CsvDataObject
+     * @return
+     */
+    public <T extends CsvDataObject> T loadDataFromCsv(String fileName, Class rowObjectClass, Class dataObjectClass) throws FileNotFoundException {
+        List<CsvBean> rows = buildBeansFromCsv(fileName, rowObjectClass);
+        return (T) new CsvDataObject(rows);
+    }
+    private <T extends CsvBean> List<T> buildBeansFromCsv(String fileName, Class clazz) throws FileNotFoundException {
 
         List<T> beans = new CsvToBeanBuilder(new FileReader(fileName))
                 .withType(clazz)
@@ -20,10 +37,5 @@ public class CsvLoader {
             throw new FileNotFoundException("Input file is empty: " + fileName);
         }
         return beans;
-    }
-
-    public boolean fileExists(String fileName) {
-        File f = new File(fileName);
-        return f.exists() && !f.isDirectory();
     }
 }

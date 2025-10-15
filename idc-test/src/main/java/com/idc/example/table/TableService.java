@@ -1,5 +1,7 @@
 package com.idc.example.table;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,5 +44,21 @@ public class TableService {
 
         table.setRows(tableRows);
         return table;
+    }
+
+    public Table sortTableByVendor(Table table, boolean asc) {
+        ArrayList<TableRow> rowsToSort = new ArrayList<>(table.getRows());
+        Table newTable = new Table();
+        rowsToSort.sort(Comparator.comparing(TableRow::vendor, asc ? Comparator.naturalOrder() : Comparator.reverseOrder()));
+        newTable.setRows(rowsToSort);
+        return newTable;
+    }
+
+    public Table sortTableByUnits(Table table,boolean asc) {
+        ArrayList<TableRow> rowsToSort = new ArrayList<>(table.getRows());
+        Table newTable = new Table();
+        rowsToSort.sort(Comparator.comparing(TableRow::units, asc ? Comparator.naturalOrder() : Comparator.reverseOrder()));
+        newTable.setRows(rowsToSort);
+        return newTable;
     }
 }

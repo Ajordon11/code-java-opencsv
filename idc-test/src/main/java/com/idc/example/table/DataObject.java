@@ -3,17 +3,11 @@ package com.idc.example.table;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataObject {
+import com.idc.example.csv.CsvDataObject;
+
+public class DataObject extends CsvDataObject {
 
     private List<DataRow> rows = new ArrayList<>();
-
-    public DataObject() {
-    }
-
-    public DataObject(List<DataRow> rows) {
-        rows.forEach(row -> System.out.println(row));
-        this.rows = rows;
-    }
 
     public List<DataRow> getRows() {
         return rows;
@@ -44,7 +38,9 @@ public class DataObject {
         if (selectedRows.isEmpty()) {
             System.out.println("No data found for vendor: " + vendor + ", country: " + country + ", timescale: " + timescale);
         }
-        return new DataObject(selectedRows);
+        DataObject dataSubset = new DataObject();
+        dataSubset.setRows(selectedRows);
+        return dataSubset;
     }
 
     public long getUnitsForVendor(String vendor) {
